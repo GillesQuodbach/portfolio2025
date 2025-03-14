@@ -1,107 +1,79 @@
 import {
   Body,
-  Button,
   Container,
   Head,
-  Hr,
   Html,
-  Img,
-  Preview,
-  Section,
   Text,
 } from '@react-email/components';
 import * as React from 'react';
 
-interface KoalaWelcomeEmailProps {
+interface CodebashEmailProps {
   userFirstname: string;
+  userLastname: string;
+  userEmail: string;
+  userMessage: string;
 }
 
-const baseUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : '';
-
-export const KoalaWelcomeEmail = ({
-  userFirstname,
-}: KoalaWelcomeEmailProps) => (
+export const CodebashEmail = ({
+  userEmail, userLastname, userFirstname, userMessage
+}: CodebashEmailProps) => (
   <Html>
     <Head />
     <Body style={main}>
-      <Preview>
-        The sales intelligence platform that helps you uncover qualified leads.
-      </Preview>
       <Container style={container}>
-        <Text style={paragraph}>Hi {userFirstname},</Text>
-        <Text style={paragraph}>
-          Welcome to Koala, the sales intelligence platform that helps you
-          uncover qualified leads and close deals faster.
-        </Text>
-        <Section style={btnContainer}>
-          <Button style={button} href="https://getkoala.com">
-            Get started
-          </Button>
-        </Section>
-        <Text style={paragraph}>
-          Best,
-          <br />
-          The Koala team
-        </Text>
-        <Hr style={hr} />
-        <Text style={footer}>
-          470 Noor Ave STE B #1148, South San Francisco, CA 94080
-        </Text>
+        <Text style={title}>📩 Nouveau message reçu</Text>
+        <Text style={label}>Nom :</Text>
+        <Text style={content}>{userLastname}</Text>
+        <Text style={label}>Prénom :</Text>
+        <Text style={content}>{userFirstname}</Text>
+        <Text style={label}>Email :</Text>
+        <Text style={content}>{userEmail}</Text>
+        <Text style={label}>Message :</Text>
+        <Text style={messageStyle}>{userMessage}</Text>
       </Container>
     </Body>
   </Html>
 );
 
-KoalaWelcomeEmail.PreviewProps = {
-  userFirstname: 'Alan',
-} as KoalaWelcomeEmailProps;
-
-export default KoalaWelcomeEmail;
+export default CodebashEmail;
 
 const main = {
-  backgroundColor: '#ffffff',
+  backgroundColor: '#1a202c',
+  color: '#ffffff',
   fontFamily:
     '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif',
+  padding: '20px',
 };
 
 const container = {
   margin: '0 auto',
-  padding: '20px 0 48px',
+  padding: '20px',
+  backgroundColor: '#2d3748',
+  borderRadius: '8px',
+  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
 };
 
-const logo = {
-  margin: '0 auto',
+const title = {
+  fontSize: '20px',
+  fontWeight: 'bold',
+  marginBottom: '10px',
 };
 
-const paragraph = {
-  fontSize: '16px',
-  lineHeight: '26px',
+const label = {
+  fontSize: '14px',
+  fontWeight: 'bold',
+  marginTop: '10px',
 };
 
-const btnContainer = {
-  textAlign: 'center' as const,
+const content = {
+  fontSize: '14px',
+  marginBottom: '10px',
 };
 
-const button = {
-  backgroundColor: '#5F51E8',
-  borderRadius: '3px',
-  color: '#fff',
-  fontSize: '16px',
-  textDecoration: 'none',
-  textAlign: 'center' as const,
-  display: 'block',
-  padding: '12px',
+const messageStyle = {
+  fontSize: '14px',
+  lineHeight: '22px',
+  padding: '10px',
+  backgroundColor: '#4a5568',
+  borderRadius: '5px',
 };
-
-const hr = {
-  borderColor: '#cccccc',
-  margin: '20px 0',
-};
-
-const footer = {
-  color: '#8898aa',
-  fontSize: '12px',
-};
-
